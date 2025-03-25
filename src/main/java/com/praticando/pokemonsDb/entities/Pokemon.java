@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,12 +25,18 @@ public class Pokemon implements Serializable {
 	private String name;
 	private List<String> types;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "trainer_id")
+	private Trainer trainer;
+	
 	public Pokemon() {}
-	public Pokemon(Integer id, String name, List<String> types) {
+	public Pokemon(Integer id, String name, List<String> types, Trainer trainer) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.types = types;
+		this.trainer = trainer;
 	}
 	
 	public Integer getId() {
@@ -44,6 +54,14 @@ public class Pokemon implements Serializable {
 	public List<String> getTypes() {
 		return types;
 	}
+	
+	public Trainer getTrainer() {
+		return trainer;
+	}
+	public void setTrainer(Trainer trainer) {
+		this.trainer = trainer;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

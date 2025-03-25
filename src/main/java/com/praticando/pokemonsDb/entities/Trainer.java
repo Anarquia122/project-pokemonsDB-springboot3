@@ -1,12 +1,16 @@
 package com.praticando.pokemonsDb.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +23,9 @@ public class Trainer implements Serializable {
 	private Integer id;
 	private String name;
 	private Integer age;
+	
+	@OneToMany(mappedBy = "trainer")
+	private List<Pokemon> pokemons = new ArrayList<>();
 	
 	public Trainer() {}
 	public Trainer(Integer id, String name, Integer age) {
@@ -46,6 +53,11 @@ public class Trainer implements Serializable {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+	public List<Pokemon> getPokemons() {
+		return pokemons;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -29,9 +29,9 @@ public class TestConfig implements CommandLineRunner {
 		Trainer t2 = new Trainer(null, "Misty", 10);
 		Trainer t3 = new Trainer(null, "Brock", 15);
 		
-		Pokemon p1 = new Pokemon(null, "Pikachu", Arrays.asList("Elétrico"));
-		Pokemon p2 = new Pokemon(null, "Psyduck", Arrays.asList("Água"));
-		Pokemon p3 = new Pokemon(null, "Onix", Arrays.asList("Pedra"));
+		Pokemon p1 = new Pokemon(null, "Pikachu", Arrays.asList("Elétrico"), t1);
+		Pokemon p2 = new Pokemon(null, "Psyduck", Arrays.asList("Água"), t2);
+		Pokemon p3 = new Pokemon(null, "Onix", Arrays.asList("Pedra"), t3);
 		
 		trainerRepository.saveAll(Arrays.asList(t1, t2, t3));
 		pokemonRepository.saveAll(Arrays.asList(p1, p2, p3));

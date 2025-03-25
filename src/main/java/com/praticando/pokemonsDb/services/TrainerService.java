@@ -31,4 +31,15 @@ public class TrainerService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public Trainer update(Long id, Trainer obj) {
+		Trainer entity = repository.getReferenceById(id);
+		updateDate(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateDate(Trainer entity, Trainer obj) {
+		entity.setName(obj.getName());
+		entity.setAge(obj.getAge());
+	}
 }

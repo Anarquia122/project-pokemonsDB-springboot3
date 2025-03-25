@@ -23,4 +23,8 @@ public class TrainerService {
 		Optional<Trainer> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Trainer insert(Trainer obj) {
+		return repository.save(obj);
+	}
 }

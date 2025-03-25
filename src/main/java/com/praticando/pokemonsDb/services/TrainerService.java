@@ -27,4 +27,8 @@ public class TrainerService {
 	public Trainer insert(Trainer obj) {
 		return repository.save(obj);
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }

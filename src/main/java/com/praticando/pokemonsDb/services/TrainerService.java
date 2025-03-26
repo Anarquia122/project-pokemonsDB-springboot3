@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.praticando.pokemonsDb.entities.Trainer;
 import com.praticando.pokemonsDb.repositories.TrainerRepository;
+import com.praticando.pokemonsDb.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class TrainerService {
@@ -21,7 +22,7 @@ public class TrainerService {
 	
 	public Trainer findById(Long id) {
 		Optional<Trainer> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Trainer insert(Trainer obj) {

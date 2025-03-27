@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.praticando.pokemonsDb.entities.Pokemon;
 import com.praticando.pokemonsDb.repositories.PokemonRepository;
+import com.praticando.pokemonsDb.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PokemonService {
@@ -22,6 +23,10 @@ public class PokemonService {
 	
 	public Pokemon findById(Long id) {
 		Optional<Pokemon> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public Pokemon insert(Pokemon obj) {
+		return repository.save(obj);
 	}
 }

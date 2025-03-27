@@ -13,6 +13,8 @@ import com.praticando.pokemonsDb.repositories.TrainerRepository;
 import com.praticando.pokemonsDb.services.exceptions.DatabaseException;
 import com.praticando.pokemonsDb.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class TrainerService {
 
@@ -43,9 +45,13 @@ public class TrainerService {
 	}
 	
 	public Trainer update(Long id, Trainer obj) {
-		Trainer entity = repository.getReferenceById(id);
-		updateDate(entity, obj);
-		return repository.save(entity);
+		try {
+			Trainer entity = repository.getReferenceById(id);
+			updateDate(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateDate(Trainer entity, Trainer obj) {

@@ -13,6 +13,8 @@ import com.praticando.pokemonsDb.repositories.PokemonRepository;
 import com.praticando.pokemonsDb.services.exceptions.DatabaseException;
 import com.praticando.pokemonsDb.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PokemonService {
 
@@ -40,5 +42,20 @@ public class PokemonService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
+	}
+	
+	public Pokemon update(Long id, Pokemon obj) {
+		try {
+			Pokemon entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+
+	private void updateData(Pokemon entity, Pokemon obj) {
+		entity.setName(obj.getName());
+		entity.setTypes(obj.getTypes());
 	}
 }

@@ -54,6 +54,9 @@ public class Pokemon implements Serializable {
 	public List<String> getTypes() {
 		return types;
 	}
+	public void setTypes(List<String> types) {
+		this.types = types;
+	}
 	
 	public Trainer getTrainer() {
 		return trainer;
